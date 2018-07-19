@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <script type="text/javascript" src="jquery-min.js"></script>
+</head>
+
+<body>
+
+<script type="text/javascript">
+
+
+ var ws = new WebSocket("ws://192.168.2.13:1234/tools/MTc2OTYzNjQ2NS4xNTI3MTQ3MzE5LjEwLjk3Nzc4M2EyMDIzNmFkMDM4ODY0OTgwMGE3ZDhiNTNhMjljMTg4Njg=");
+ var i =0;
+
+ ws.binaryType = 'arraybuffer';
+ ws.onerror = function() {
+    $("#out").append("error socket");
+ }
+ ws.onopen = function() {
+    $("#out").append("open socket");
+ };
+
+ ws.onmessage = function (evt) {
+    $("#out").append(evt.data);
+ };
+ ws.onclose = function() {  
+    $("#out").append("close socket");
+ };
+
+
+
+function sendCmd() {
+    $("#out").append("send cmd");i++;
+    ws.send("test"+i)
+}
+function myclear() {
+     $("#out").empty();
+}
+</script>
+ 
+<button onclick='sendCmd()'>test</button>
+<button onclick='myclear();'>clear</button>
+
+
+<pre id='out'>
+ test output
+</pre>
+
+</body>
+</html>
